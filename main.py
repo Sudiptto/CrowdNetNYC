@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, jsonify, make_response, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, DateTime
+import json
 from sqlalchemy.sql import func
 import pandas as pd 
 from password import *
@@ -71,6 +72,48 @@ def add_data():
     # Note, ALWAYS RETURN JSON DATA BACK OR ELSE YOU WILL HAVE AN ISSUE!
     res = make_response(jsonify({"messsage":"JSON"}), 200)
     return res
+
+
+
+@app.route('/data')  # send the data to the javascript file
+def data():
+    allData = Location.query.all()
+    allInformation = []
+    #ADD DATA TO DATABASE TO allInformation
+    for i in allData:
+        allInformation.append([i.latitude, i.longitude, i.date, i.wifi_username, i.wifi_password]) # append the latitude and longitude values , date, wifi_username and wifi_password, this creates a two dimensional array
+    my_list = allInformation
+    return jsonify(my_list)
+
+
+# DELETE DATA
+
+# make a function to delete the location data (Note: Authentication not implemented yet!)
+@app.route("/delete_data", methods=["POST"])
+def delete_data():
+    if request.method == "POST":
+        # get the data from JavaScript 
+        req = request.get_json()
+        new_req = json.loads(req)
+        latitude = new_req['lat']
+        longitude = new_req['lng']
+
+        lat = float(latitude)
+        long = float(longitude)
+
+        latitude_exists = Location.query.filter_by(latitude=lat).first()
+        longitude_exists = Location.query.filter_by(longitude=long).first()
+        if latitude_exists and longitude_exists:
+            print("Latitude and Longitude exists")
+            db.session.delete(latitude_exists) # delete whole database
+            db.session.commit()
+        else:
+            print("Non exist")
+
+    res = make_response(jsonify({"messsage":"JSON"}), 200)
+    return res
+
+
 
 # NOTE DATABASE ONLY WORKS BECAUSE WE ARE RUNNING FLASK SQLALCHEMY ON AN OLDER VERSION , 1.4.41
 # note not working on linux for some reason 

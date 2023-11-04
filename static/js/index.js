@@ -157,7 +157,69 @@ setTimeout(function(){
   }
   
   window.initMap = initMap;
-  
+
+  // Fetch from the python file (check /data)
+fetch('/data')
+.then(response => response.json())
+.then(data => {
+    //console.log(data);
+//    const geocoder = new google.maps.Geocoder();
+
+// Code below starts at 0 and goes till end of the data.length (note that this depends on how large)
+
+    for(let i = 0; i < data.length; i++){
+      
+        let markerA = new google.maps.Marker({
+          position: {lat: data[i][0], lng: data[i][1]},
+          icon: {
+           url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            //url: "./static/Button_Icon_Green.svg.png"
+          },
+          map: map,
+          draggable: false
+       });
+       
+       
+       let date = new Date(data[i][2]);
+       //console.log(date)
+       //console.log(data[i][3]); // this is the wifi username
+       //console.log(data[i][4]); // this is the wifi password
+       wifiUsername = data[i][3]
+       wifiPassword = data[i][4]
+       var infowindow = new google.maps.InfoWindow({
+        content: "<h1 style='color: black; font-size: 20px'>WIFI-INFORMATION BELOW!</h1> <br/> <h3 style='color: black; font-size: 10px'>Wifi-Username: " +  wifiUsername +" </h3> <h3 style='color: black; font-size: 10px'>Wifi-Password: " +  wifiPassword +" </h3> <h3 style='color: black; font-size: 10px'>Date Posted: " +  date +" </h3>"
+       });
+       
+       markerA.addListener('mouseover', function() {
+        infowindow.open(map, markerA);
+       });
+
+       markerA.addListener('mouseout', function() {
+        infowindow.close();
+       });
+
+
+       google.maps.event.addListener(markerA,'dblclick', function(event){
+        markerA.setMap(null);
+        let entry = JSON.stringify(event.latLng.toJSON(), null, 2)
+        console.log(entry)
+        
+        fetch ('/delete_data', {
+          method : "POST",
+          credentials : 'include',
+          body : JSON.stringify(entry),
+          cache : "no-cache",
+          headers : new Headers ({
+            "content-type" :"application/json"
+         })
+       })
+     });
+       
+      
+    }
+    
+})   
+
 
   
  
