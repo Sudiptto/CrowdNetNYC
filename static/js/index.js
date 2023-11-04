@@ -28,9 +28,22 @@ setTimeout(function(){
     locationButton.textContent = "Current Location";
     locationButton.classList.add("center-button");
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(locationButton);
+    /*
+    Note this location kind of works but very glitchy
+    let wifi_username = prompt("Please enter Wifi-Username: ");
+    let wifi_password = prompt("Please enter Wifi-Password: ");
+    console.log(wifi_username, wifi_password);
+    alert("Do you understand that these have to be correct?")*/
+
     locationButton.addEventListener("click", () => {
+      /* Note this location doesn't work 
+    let wifi_username = prompt("Please enter Wifi-Username: ");
+    let wifi_password = prompt("Please enter Wifi-Password: ");
+    console.log(wifi_username, wifi_password);
+    alert("Do you understand that these have to be correct?") */
       // Try HTML5 geolocation.
       if (navigator.geolocation) {
+        
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const pos = {
@@ -72,6 +85,24 @@ setTimeout(function(){
       let geocoder = new google.maps.Geocoder();
       let latLng = event.latLng;
       
+      // Note this place works well, after the user clicks they will be met with a prompt
+      let wifi_username = prompt("Please enter Wifi-Username: ");
+      let wifi_password = prompt("Please enter Wifi-Password: ");
+
+      let confirm_username = prompt("Please re-enter Username: ");
+      let confirm_password = prompt("Please re-enter Password: ");
+
+      // Verify if they match 
+
+      if(wifi_username == confirm_username && confirm_password == confirm_password){
+        alert("Matches! ")
+      }
+      else{
+        alert("Does not match! ")
+        location.reload();
+      }
+      //console.log(wifi_username, wifi_password);
+    
       // Send a geocoding request to Google Maps Geocoding API.
       geocoder.geocode({ location: latLng }, (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
@@ -86,7 +117,9 @@ setTimeout(function(){
           const locationData = {
             latitude: latitude,
             longitude: longitude,
-            zipcode: zipcode
+            zipcode: zipcode,
+            wifiPassword: wifi_password,
+            wifiUsername: wifi_username,
           };
 
           console.log(locationData);
