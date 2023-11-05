@@ -5,36 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Information</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/information.css') }}">
-    <style>
-        
-    </style>
-    <script>
-        let slideIndex = 1;
-showSlides(slideIndex);
-
-
-
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-}
-    </script>
+    <script src="{{ url_for('static', filename='js/information.js') }}"></script>
 </head>
 <body>
     <!-- Mission Statement Section -->

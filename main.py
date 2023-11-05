@@ -97,7 +97,7 @@ def data():
     for i in allData:
         allInformation.append([i.latitude, i.longitude, i.date, i.wifi_username, i.wifi_password]) # append the latitude and longitude values , date, wifi_username and wifi_password, this creates a two dimensional array
 
-    allInformation.append(moderator_pin)
+    
     my_list = allInformation
     print(my_list) #
     return jsonify(my_list)
