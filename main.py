@@ -45,6 +45,10 @@ def get_city(zip):
 def index():
     return render_template('index.html', api_key=api_key, moderator_pin=moderator_pin)
 
+@app.route('/information')
+def information():
+    return render_template('information.html')
+
 # add data into the database
 @app.route('/add_data', methods=['POST'])
 def add_data():

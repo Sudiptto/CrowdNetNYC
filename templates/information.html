@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Information</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/information.css') }}">
+    <style>
+        
+    </style>
+    <script>
+        let slideIndex = 1;
+showSlides(slideIndex);
+
+
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+    </script>
+</head>
+<body>
+    <!-- Mission Statement Section -->
+    <section id="mission">
+        <h2>Mission Statement</h2>
+        <p style="color: black; font-size: 25px;">CrowdNet NYC is driven by a heartfelt mission to <strong>connect</strong> and <strong>empower</strong> New Yorkers, especially those facing the toughest challenges. In the heart of this great city, we are determined to <strong>bridge</strong> the digital divide and provide <strong>essential</strong> internet access. In a world where <strong>education</strong>, <strong>employment</strong>, and <strong>information</strong> are just a click away, we <strong>unite</strong> communities and <strong>inspire</strong> change. Our project uses NYC's open data and crowdsourced internet to locate places where the internet can be accessed, offering internet access to individuals, including the <strong>homeless, low-income, etc</strong>, so that they can <strong>improve</strong> and <strong>connect</strong>. Our vision is a city where everyone has the opportunity to <strong>soar</strong>, regardless of their circumstances. Huge thanks to all our crowdsourcers that are uploading WiFi opportunities! Your contribution will impact many!</p>
+
+    </section>
+
+    <!-- Data Carousel Section -->
+    <section id="data">
+        <h2>Data and Images</h2>
+        <div class="slideshow-container">
+
+            <!-- Full-width images with number and caption text -->
+            <div class="mySlides fade">
+              <div class="numbertext">1 / 3</div>
+              <img src="{{ url_for('static', filename='crowdData.png') }}" style="width:50%">
+              <div class="text">Database storing some crowdsourced data!</div>
+            </div>
+          
+            <div class="mySlides fade">
+              <div class="numbertext">2 / 3</div>
+              <img src="{{ url_for('static', filename='csvData.png') }}" style="width:50%; height:50%;">
+              <div class="text">CSV file with data!</div>
+            </div>
+          
+            <div class="mySlides fade">
+              <div class="numbertext">3 / 3</div>
+              <img src="{{ url_for('static', filename='openData.png') }}" style="width:50%">
+              <div class="text">NycOpen Data!</div>
+            </div>
+
+          </div>
+          <br>
+          
+          <!-- The dots/circles -->
+          <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+          </div>
+        <p>Our data comes from various sources. We are proud of all of our crowdsourcers who generously put information about WiFi opportunities onto the program! We also get our data from NYC Open Data, which is a resource containing various statistics and data about NYC. We use the <a href="https://data.cityofnewyork.us/Social-Services/internet-connection-nyc/k9p3-ztqv">Social Servies Internet Connection</a> csv data! This file contains thousands of nyc hotspots! We then parsed through this data only extracting the SSID, latitude, longitude and type for faster access and more efficiency! <a href="https://github.com/Sudiptto/CrowdNetNYC/blob/main/NycHotspots.csv">Click for parsed CSV file! </a></p>
+    </section>
+
+
+
+    <!-- Future Statement Section -->
+    <section id="future">
+        <h2>Future Statement</h2>
+        <p style="color: black; font-size: 25px;"><strong>Our Future Plans:</strong> CrowdNet NYC is committed to expanding its reach beyond New York City. Our vision includes bringing this resource to more states and cities, ensuring that digital inclusion becomes a reality for people across the nation. We aim to introduce <strong>reward benefits</strong> for individuals who contribute by sharing accurate Wi-Fi hotspot information, incentivizing their participation in this project. Additionally, we're excited to offer <strong>volunteering opportunities</strong> to high school and college students willing to make a difference. They can play a vital role in verifying and updating the Wi-Fi information, helping us create a more accurate and comprehensive resource. In the near future, CrowdNet NYC also aspires to establish our very own Wi-Fi spots, contributing to the growing network of accessible internet locations for all. We will also publish data and help researchers if they want wifi data!</p>
+
+    </section>
+</body>
+</html>

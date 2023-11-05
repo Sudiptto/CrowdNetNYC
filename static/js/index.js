@@ -276,10 +276,15 @@ fetch('/data')
        });
 
        google.maps.event.addListener(markerA,'dblclick', function(event){
+        pinPrompt = prompt("Enter a pin to delete: ")
         markerA.setMap(null);
         let entry = JSON.stringify(event.latLng.toJSON(), null, 2)
         console.log(entry)
+        // NOTE BELOW WILL NOT BE HIDDEN (PASSWORD) HIDE IN FUTURE THIS IS FOR DEMO
+
+        let secretKey = '2105'
         
+        if(secretKey == pinPrompt){
         fetch ('/delete_data', {
           method : "POST",
           credentials : 'include',
@@ -289,6 +294,13 @@ fetch('/data')
             "content-type" :"application/json"
          })
        })
+       location.reload()
+      
+      }
+       else{
+        alert('Not the correct key!')
+        location.reload()
+       }
       
      });
        

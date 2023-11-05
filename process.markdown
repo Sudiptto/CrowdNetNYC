@@ -9,4 +9,6 @@ Document Managment for CrowdNet NYC
 
 Plans for finishing 
 
-6) Add a moderator pin (only moderators will have access to the pin and this is to delete FALSE DATA, moderators will be trusted and if available will check the data to see if the wifi password and username is legitimate) (TOUGH PROCESS)
+6) Add a moderator pin (only moderators will have access to the pin and this is to delete FALSE DATA, moderators will be trusted and if available will check the data to see if the wifi password and username is legitimate) (TOUGH PROCESS) (VERY HARD TO HIDE IN CIENT JAVASCRIPT)
+
+7) Develop the other page
