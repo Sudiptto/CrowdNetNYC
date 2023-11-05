@@ -43,13 +43,7 @@ def get_city(zip):
 
 @app.route('/')
 def index():
-    images = {
-        'library_icon': url_for('static', filename='library.png'),
-        
-    }
-
-    
-    return render_template('index.html', api_key=api_key, images=images)
+    return render_template('index.html', api_key=api_key, moderator_pin=moderator_pin)
 
 # add data into the database
 @app.route('/add_data', methods=['POST'])
@@ -98,7 +92,10 @@ def data():
     #ADD DATA TO DATABASE TO allInformation
     for i in allData:
         allInformation.append([i.latitude, i.longitude, i.date, i.wifi_username, i.wifi_password]) # append the latitude and longitude values , date, wifi_username and wifi_password, this creates a two dimensional array
+
+    allInformation.append(moderator_pin)
     my_list = allInformation
+    print(my_list) #
     return jsonify(my_list)
 
 
@@ -129,7 +126,9 @@ def delete_data():
     res = make_response(jsonify({"messsage":"JSON"}), 200)
     return res
 
-
+@app.route('/get_moderator_pin', methods=['GET'])
+def get_moderator_pin():
+    return jsonify({'moderator_pin': moderator_pin})
 
 # NOTE DATABASE ONLY WORKS BECAUSE WE ARE RUNNING FLASK SQLALCHEMY ON AN OLDER VERSION , 1.4.41
 # note not working on linux for some reason 

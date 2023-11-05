@@ -9,5 +9,4 @@ Document Managment for CrowdNet NYC
 
 Plans for finishing 
 
-6) Perhaps add a password option for each marker so if a user wants to double click they have to know the password (so user's cant delete DATA!)
-    6.5) If time, have a database where there is a moderator with special permissions that can review and delete false data 
+6) Add a moderator pin (only moderators will have access to the pin and this is to delete FALSE DATA, moderators will be trusted and if available will check the data to see if the wifi password and username is legitimate) (TOUGH PROCESS)

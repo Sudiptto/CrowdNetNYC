@@ -234,6 +234,8 @@ fetch('/get_csv_data')
     });
 
 
+
+
 fetch('/data')
 .then(response => response.json())
 .then(data => {
@@ -243,7 +245,6 @@ fetch('/data')
 // Code below starts at 0 and goes till end of the data.length (note that this depends on how large)
 
     for(let i = 0; i < data.length; i++){
-      
         let markerA = new google.maps.Marker({
           position: {lat: data[i][0], lng: data[i][1]},
           icon: {
@@ -274,7 +275,6 @@ fetch('/data')
         infowindow.close();
        });
 
-
        google.maps.event.addListener(markerA,'dblclick', function(event){
         markerA.setMap(null);
         let entry = JSON.stringify(event.latLng.toJSON(), null, 2)
@@ -289,6 +289,7 @@ fetch('/data')
             "content-type" :"application/json"
          })
        })
+      
      });
        
       

@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Barriecito&family=EB+Garamond:ital,wght@1,500&family=Kolker+Brush&family=Permanent+Marker&family=Syne+Mono&display=swap" rel="stylesheet">
     
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="config.json"></script>
 </head>
 <div class="preloader">
   <div class="preloader-text">CrowdNet NYC!</div>
@@ -23,10 +24,12 @@
     <nav class="navbar fixed-bottom navbar-dark bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">CrowdNetNYC (CLICK TO VIEW MISSION STATEMENT)</a>
+          <a class="navbar-brand" onclick="print()">PRINT</a>
         </div>
       </nav>
     <script
       src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap&v=weekly"
+      var moderatorPin = "{{ moderator_pin }}";
       defer
     ></script>
 </body>
