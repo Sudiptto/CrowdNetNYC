@@ -40,9 +40,16 @@ def get_city(zip):
         return city
     
 
+
 @app.route('/')
 def index():
-    return render_template('index.html', api_key=api_key)
+    images = {
+        'library_icon': url_for('static', filename='library.png'),
+        
+    }
+
+    
+    return render_template('index.html', api_key=api_key, images=images)
 
 # add data into the database
 @app.route('/add_data', methods=['POST'])
@@ -73,7 +80,16 @@ def add_data():
     res = make_response(jsonify({"messsage":"JSON"}), 200)
     return res
 
+# SEND DATA FROM THE CSV FILE TO JAVASCRIPT
+@app.route('/get_csv_data')
+def get_csv_data():
+    # Read data from the CSV file
+    data = pd.read_csv('NycHotspots.csv')
+    #print(data)
+    # Convert the data to JSON format
+    json_data = data.to_json(orient='records')
 
+    return json.dumps(json_data)
 
 @app.route('/data')  # send the data to the javascript file
 def data():

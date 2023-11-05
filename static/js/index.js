@@ -158,7 +158,82 @@ setTimeout(function(){
   
   window.initMap = initMap;
 
-  // Fetch from the python file (check /data)
+// DEVELOP A FUNCTION THAT RETURNS THE MAPS.GOOGLE.COM icons based on the SSID
+function maps_icons(ssid){
+  // NOTE ALL ICONS ARE FROM: Freepik
+  let url_icon = ""
+  if(ssid == 'LinkNYC Free Wi-Fi'){
+    url_icon = 'static/icons/linkNYC.png'
+  }
+  else if(ssid == 'GuestWiFi'){
+    url_icon = 'static/icons/guestwifi.png'
+  }
+  else if(ssid == 'TransitWirelessWiFi'){
+    url_icon = 'static/icons/mta.png'
+  }
+  else if(ssid == 'NYPL' || ssid == 'BPLUNWIRED' || ssid == 'QBPL_WIRELESS'){
+    url_icon = 'static/icons/library.png'
+  }
+  else{ // ALL OTHERS 
+    url_icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+  }
+  //console.log(url_icon);
+  return url_icon;
+  
+}
+
+// Fetch data from the Flask endpoint
+fetch('/get_csv_data')
+    .then(response => response.json())
+    .then(data => {
+
+        
+        // Iterate over the data using a for loop
+        const parsedData = JSON.parse(data);
+        for (let i = 0; i < parsedData.length; i++) {
+            const item = parsedData[i];
+            let latitude = item['LAT'];
+            let longitude = item['LON'];
+            let ssid = item['SSID'];
+            let internet_type = item['TYPE'];
+            //console.log(latitude, longitude, ssid, internet_type);
+
+        
+            // DRAW MARKERS
+            // MAKE A NEW MARKER CSV (CAN'T BE DELETED )
+            let markerCSV = new google.maps.Marker({
+              position: {lat: latitude, lng: longitude},
+              icon: {
+               url: maps_icons(ssid)
+                //url: "./static/Button_Icon_Green.svg.png"
+              },
+              map: map,
+              draggable: false
+           });
+
+
+           // ADD IN INFORMATION 
+           var infowindow = new google.maps.InfoWindow({
+            content: "<h1 style='color: black; font-size: 15, font: Times New Roman'>Free WiFi Spot</h1> </br> <p style='color: black; font-size: 15, font: Times New Roman'> Internet Type: " + internet_type + " </br> SSID: " + ssid+  " </br> Note that this is from our  <b style='color: black'>database!</b> </p>"
+           });
+           
+           markerCSV.addListener('mouseover', function() {
+            infowindow.open(map, markerCSV);
+           });
+    
+           markerCSV.addListener('mouseout', function() {
+            infowindow.close();
+           });
+
+        }
+        // DEVELOP A FUNCTION THAT RETURNS THE MAPS.GOOGLE.COM icons based on the SSID
+
+    })
+    .catch(error => {
+        console.error("Error fetching data:", error);
+    });
+
+
 fetch('/data')
 .then(response => response.json())
 .then(data => {
@@ -180,6 +255,7 @@ fetch('/data')
        });
        
        
+       
        let date = new Date(data[i][2]);
        //console.log(date)
        //console.log(data[i][3]); // this is the wifi username
@@ -187,7 +263,7 @@ fetch('/data')
        wifiUsername = data[i][3]
        wifiPassword = data[i][4]
        var infowindow = new google.maps.InfoWindow({
-        content: "<h1 style='color: black; font-size: 20px'>WIFI-INFORMATION BELOW!</h1> <br/> <h3 style='color: black; font-size: 10px'>Wifi-Username: " +  wifiUsername +" </h3> <h3 style='color: black; font-size: 10px'>Wifi-Password: " +  wifiPassword +" </h3> <h3 style='color: black; font-size: 10px'>Date Posted: " +  date +" </h3>"
+        content: "<h1 style='color: black; font-size: 20px'>User Added WiFi!</h1> <br/> <h3 style='color: black; font-size: 10px'>Wifi-Username: " +  wifiUsername +" </h3> <h3 style='color: black; font-size: 10px'>Wifi-Password: " +  wifiPassword +" </h3> <h3 style='color: black; font-size: 10px'>Date Posted: " +  date +" </h3> <p style='color: black; font-size: 15px'> Take with grain of salt, added by USER! </p>"
        });
        
        markerA.addListener('mouseover', function() {
@@ -219,6 +295,7 @@ fetch('/data')
     }
     
 })   
+
 
 
   
