@@ -12,3 +12,10 @@ Plans for finishing
 6) Add a moderator pin (only moderators will have access to the pin and this is to delete FALSE DATA, moderators will be trusted and if available will check the data to see if the wifi password and username is legitimate) (TOUGH PROCESS) (VERY HARD TO HIDE IN CIENT JAVASCRIPT)
 
 7) Develop the other page
+
+POST HACKATHON)
+
+1) Continue working on the project, figure out how to hide the key so that moderators can delete
+2) USE RELATIONAL DATABASES and foreign keys to create a login system  where people get rewards (Envision a rewards system and a banning system for people who do not comply)
+3) Try a google maps offline option so people won't need internet
+   
